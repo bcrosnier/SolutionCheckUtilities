@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionChecker.Core", "SolutionChecker.Core\SolutionChecker.Core.csproj", "{838D2FE2-69E7-4288-B13D-30B65D19911F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionChecker.NuGetChecker", "SolutionChecker.NuGetChecker\SolutionChecker.NuGetChecker.csproj", "{2F2AB08D-D972-41E4-85C7-56BA108055C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Checkers", "Checkers", "{6C6E7CB7-BD65-4AE9-8E26-5B8F832E60AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionChecker.ReferenceChecker", "SolutionChecker.ReferenceChecker\SolutionChecker.ReferenceChecker.csproj", "{69AA8045-ADA0-4B15-B0E9-7B6562F8250A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionChecker.Tests", "SolutionChecker.Tests\SolutionChecker.Tests.csproj", "{A0CBB3AF-92D8-4D32-B4ED-73250815EC4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7918CC3F-197B-4439-86C9-057E461BCAED}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{838D2FE2-69E7-4288-B13D-30B65D19911F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838D2FE2-69E7-4288-B13D-30B65D19911F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838D2FE2-69E7-4288-B13D-30B65D19911F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838D2FE2-69E7-4288-B13D-30B65D19911F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2AB08D-D972-41E4-85C7-56BA108055C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2AB08D-D972-41E4-85C7-56BA108055C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2AB08D-D972-41E4-85C7-56BA108055C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2AB08D-D972-41E4-85C7-56BA108055C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69AA8045-ADA0-4B15-B0E9-7B6562F8250A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69AA8045-ADA0-4B15-B0E9-7B6562F8250A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69AA8045-ADA0-4B15-B0E9-7B6562F8250A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69AA8045-ADA0-4B15-B0E9-7B6562F8250A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CBB3AF-92D8-4D32-B4ED-73250815EC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CBB3AF-92D8-4D32-B4ED-73250815EC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CBB3AF-92D8-4D32-B4ED-73250815EC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CBB3AF-92D8-4D32-B4ED-73250815EC4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F2AB08D-D972-41E4-85C7-56BA108055C4} = {6C6E7CB7-BD65-4AE9-8E26-5B8F832E60AB}
+		{69AA8045-ADA0-4B15-B0E9-7B6562F8250A} = {6C6E7CB7-BD65-4AE9-8E26-5B8F832E60AB}
+	EndGlobalSection
+EndGlobal
