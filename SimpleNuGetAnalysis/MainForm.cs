@@ -32,17 +32,28 @@ namespace SimpleNuGetAnalysis
             _m.Trace().Send( "Loaded window." );
         }
 
-        public void RunAnalysis(string slnPath)
+        public async void RunAnalysis(string slnPath)
         {
             if( !File.Exists( slnPath ) ) throw new FileNotFoundException( "Given solution file does not exist." );
 
             _m.Info().Send( "Loading: {0}", slnPath );
 
             ISolution s = SolutionFactory.ReadFromSolutionFile( slnPath );
-            NuGetChecker checker = new NuGetChecker( s );
-            NuGetCheckResult result = checker.Check();
+
+            NuGetCheckResult result = await ComputeResults( s );
 
             result.LogResult( _m );
+        }
+
+        private async Task<NuGetCheckResult> ComputeResults(ISolution s)
+        {
+            NuGetChecker checker = new NuGetChecker( s );
+
+            NuGetCheckResult result = await Task.Run<NuGetCheckResult>( () => checker.Check() );
+
+            await Task.Run( () => result.ComputeMismatchesIfNecessary() );
+
+            return result;
         }
 
         public void AddLine(string s)

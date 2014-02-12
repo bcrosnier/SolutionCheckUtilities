@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using CK.Core;
@@ -161,7 +162,7 @@ namespace SolutionChecker
             }
         }
 
-        private void ComputeMismatchesIfNecessary()
+        public void ComputeMismatchesIfNecessary()
         {
             if( _packageProjectVersionMismatches != null ) return;
 
@@ -185,10 +186,94 @@ namespace SolutionChecker
                             if( !_parameters.MatchesWhitelist( project, packageRef ) ) projectReferences.Add( project, packageRef );
                         }
                     }
-                    if( projectReferences.Count > 1 ) _packageProjectVersionMismatches.Add( packageId, projectReferences );
+                    if( projectReferences.Count > 1 )
+                    {
+                        // Sort by ascending package reference description
+                        projectReferences = projectReferences.OrderBy( pair => pair.Value.Describe() ).ToDictionary( pair => pair.Key, pair => pair.Value );
+                        _packageProjectVersionMismatches.Add( packageId, projectReferences );
+                    }
                 }
 
             }
+
+            // Order outer by package ID
+            _packageProjectVersionMismatches = _packageProjectVersionMismatches.OrderBy( pair => pair.Key ).ToDictionary( pair => pair.Key, pair => pair.Value );
+        }
+
+        public IReadOnlyDictionary<string, IReadOnlyDictionary<FrameworkName, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>> GetFrameworkMismatches()
+        {
+            ComputeMismatchesIfNecessary();
+
+            Dictionary<string, IReadOnlyDictionary<FrameworkName, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>> result =
+                new Dictionary<string, IReadOnlyDictionary<FrameworkName, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>>();
+
+            var packageIds = _packageProjectVersionMismatches.Keys;
+            foreach( var packageId in packageIds )
+            {
+                Dictionary<FrameworkName, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>> frameworkRefs =
+                    new Dictionary<FrameworkName, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>();
+
+                var projectsToRefs = _packageProjectVersionMismatches[packageId];
+
+                var distinctFrameworks = projectsToRefs.Select( x => x.Value.TargetFramework ).Distinct();
+                if( distinctFrameworks.Count() < 2 ) break;
+
+                foreach( var framework in distinctFrameworks )
+                {
+                    List<Tuple<PackageReference, ISolutionProjectItem>> frameworkReferences = new List<Tuple<PackageReference, ISolutionProjectItem>>();
+
+                    var r = projectsToRefs.Select( x => new { project = x.Key, reference = x.Value } ).Where( x => x.reference.TargetFramework == framework );
+                    foreach( var pair in r )
+                    {
+                        frameworkReferences.Add( Tuple.Create( pair.reference, pair.project ) );
+                    }
+
+                    frameworkRefs.Add( framework, frameworkReferences );
+                }
+                frameworkRefs = frameworkRefs.OrderBy( x => x.Value.Count ).ToDictionary( x => x.Key, x => x.Value );
+
+                result.Add( packageId, frameworkRefs );
+            }
+
+            return result;
+        }
+
+        public IReadOnlyDictionary<string, IReadOnlyDictionary<SemanticVersion, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>> GetVersionMismatches()
+        {
+            ComputeMismatchesIfNecessary();
+
+            Dictionary<string, IReadOnlyDictionary<SemanticVersion, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>> result =
+                new Dictionary<string, IReadOnlyDictionary<SemanticVersion, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>>();
+
+            var packageIds = _packageProjectVersionMismatches.Keys;
+            foreach( var packageId in packageIds )
+            {
+                Dictionary<SemanticVersion, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>> versionRefs =
+                    new Dictionary<SemanticVersion, IReadOnlyCollection<Tuple<PackageReference, ISolutionProjectItem>>>();
+
+                var projectsToRefs = _packageProjectVersionMismatches[packageId];
+
+                var distinctVersions = projectsToRefs.Select( x => x.Value.Version ).Distinct();
+                if( distinctVersions.Count() < 2 ) break;
+
+                foreach( var version in distinctVersions )
+                {
+
+                    List<Tuple<PackageReference, ISolutionProjectItem>> versionReferences = new List<Tuple<PackageReference, ISolutionProjectItem>>();
+
+                    var r = projectsToRefs.Select( x => new { project = x.Key, reference = x.Value } ).Where( x => x.reference.Version == version );
+                    foreach( var pair in r )
+                    {
+                        versionReferences.Add( Tuple.Create( pair.reference, pair.project ) );
+                    }
+
+                    versionRefs.Add( version, versionReferences );
+                }
+                versionRefs = versionRefs.OrderBy( x => x.Value.Count ).ToDictionary( x => x.Key, x => x.Value );
+                result.Add( packageId, versionRefs );
+            }
+
+            return result;
         }
 
 

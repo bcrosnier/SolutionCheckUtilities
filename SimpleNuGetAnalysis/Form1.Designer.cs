@@ -40,6 +40,7 @@
             this.logTestBox.Multiline = true;
             this.logTestBox.Name = "logTestBox";
             this.logTestBox.ReadOnly = true;
+            this.logTestBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.logTestBox.Size = new System.Drawing.Size(758, 528);
             this.logTestBox.TabIndex = 0;
             // 

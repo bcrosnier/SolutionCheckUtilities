@@ -81,6 +81,11 @@ namespace SolutionChecker.Tests
             Assert.That( r.MultiplePackagesPerId["CK.Core"], Has.Count.AtLeast( 2 ) );
             Assert.That( r.MultiplePackagesPerId["CK.Core"].Values, Is.Unique );
             Assert.That( r.MultiplePackagesPerId["CK.Core"].Keys, Is.Unique );
+
+            Assert.That( r.GetVersionMismatches(), Has.Count.EqualTo( 1 ) );
+            Assert.That( r.GetVersionMismatches()["CK.Core"], Has.Count.EqualTo( 2 ) );
+
+            Assert.That( r.GetFrameworkMismatches(), Has.Count.EqualTo( 0 ) );
         }
 
         [Test]
@@ -101,6 +106,11 @@ namespace SolutionChecker.Tests
             Assert.That( r.MultiplePackagesPerId["CK.Core"], Has.Count.AtLeast( 2 ) );
             //Assert.That( r.MultiplePackagesPerId["CK.Core"].Values, Is.Unique ); // False: 2 package references are considered equal even with different TargetFrameworks.
             Assert.That( r.MultiplePackagesPerId["CK.Core"].Keys, Is.Unique );
+
+            Assert.That( r.GetFrameworkMismatches(), Has.Count.EqualTo( 1 ) );
+            Assert.That( r.GetFrameworkMismatches()["CK.Core"], Has.Count.EqualTo( 2 ) );
+
+            Assert.That( r.GetVersionMismatches(), Has.Count.EqualTo( 0 ) );
         }
 
         [Test]
