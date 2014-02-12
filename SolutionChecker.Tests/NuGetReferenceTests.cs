@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using CK.Core;
+using CK.Monitoring;
 using NuGet;
 using NUnit.Framework;
 
@@ -14,16 +16,23 @@ namespace SolutionChecker.Tests
     public class NuGetReferenceTests
     {
         IActivityMonitor _m;
-
-        [SetUp]
-        public void SetUp()
+        GrandOutput _mainOutput;
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
         {
+            TestHelper.CleanupTestFolder();
+
             _m = TestHelper.ConsoleMonitor;
+            SystemActivityMonitor.RootLogPath = Path.Combine( TestHelper.TestFolder, "RootLogPath" );
+            _mainOutput = MonitoringHelper.PrepareNewGrandOutputFolder();
+
+            _mainOutput.Register( _m );
         }
 
-        [TearDown]
+        [TestFixtureTearDown]
         public void TearDown()
         {
+            _mainOutput.Dispose();
         }
 
         [Test]

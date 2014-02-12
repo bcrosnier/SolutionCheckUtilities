@@ -104,7 +104,7 @@ namespace SolutionChecker.Tests
             {
                 p = Path.GetDirectoryName( p );
             }
-            while( !File.Exists( Path.Combine( p, "CK-Core.sln" ) ) );
+            while( !File.Exists( Path.Combine( p, "SolutionCheckUtilities.sln" ) ) );
             _solutionFolder = p;
 
             ConsoleMonitor.Info().Send( "SolutionFolder is: {1}\r\nTestFolder is: {0}", _testFolder, _solutionFolder );
