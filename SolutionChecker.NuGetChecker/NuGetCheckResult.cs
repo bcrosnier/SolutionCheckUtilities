@@ -106,7 +106,7 @@ namespace SolutionChecker
 
                 if( whitelistMatches.Count > 0 )
                 {
-                    using( m.OpenInfo().Send( "These packages are explicitely allowed for projects:" ) )
+                    using( m.OpenInfo().Send( "These packages are explicitly allowed for projects:" ) )
                     {
                         foreach( var t in whitelistMatches )
                         {
@@ -130,6 +130,10 @@ namespace SolutionChecker
                             }
                         }
                     }
+                }
+                else
+                {
+                    m.Info().Send( "No potential NuGet package conflicts were detected in this solution." );
                 }
 
                 using( m.OpenTrace().Send( "Package IDs and their versions" ) )
