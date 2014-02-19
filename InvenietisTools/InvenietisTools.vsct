@@ -25,7 +25,7 @@
 
   <!--The Commands section is where we the commands, menus and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-  <Commands package="guidSolutionCheckUtilities_VSPackagePkg">
+  <Commands package="guidInvenietisToolsPkg">
     <!-- Inside this section we have different sub-sections: one for the menus, another  
     for the menu groups, one for the buttons (the actual commands), one for the combos 
     and the last one for the bitmaps used. Each element is identified by a command id that  
@@ -41,19 +41,20 @@
          must be a menu. -->
     <Groups>
 
-      <Group guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="RootMenuGroup" priority="0x0600">
+      <Group guid="guidInvenietisToolsCmdSet" id="RootMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
 
-      <Group guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="SubMenuGroup" priority="0x0000">
-        <Parent guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="SubMenu"/>
+      <Group guid="guidInvenietisToolsCmdSet" id="SubMenuGroup" priority="0x0000">
+        <Parent guid="guidInvenietisToolsCmdSet" id="SubMenu"/>
       </Group>
+
 
     </Groups>
 
     <Menus>
-      <Menu guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="SubMenu" priority="0x0100" type="Menu">
-        <Parent guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="RootMenuGroup"/>
+      <Menu guid="guidInvenietisToolsCmdSet" id="SubMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidInvenietisToolsCmdSet" id="RootMenuGroup"/>
 
         <Strings>
           <ButtonText>Invenietis tools</ButtonText>
@@ -74,8 +75,8 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
 
-      <Button guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="cmdidRunSolutionCheck" priority="0x0600" type="Button">
-        <Parent guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="SubMenuGroup" />
+      <Button guid="guidInvenietisToolsCmdSet" id="cmdidNuGetAnalysis" priority="0x0600" type="Button">
+        <Parent guid="guidInvenietisToolsCmdSet" id="SubMenuGroup" />
         <Icon guid="guidIcon" id="mainIcon" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -96,6 +97,7 @@
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+
       <Bitmap guid="guidIcon" href="Resources\logo16.png" usedList="mainIcon"/>
 
     </Bitmaps>
@@ -103,28 +105,28 @@
   </Commands>
 
   <VisibilityConstraints>
-    <VisibilityItem guid="guidSolutionCheckUtilities_VSPackageCmdSet" id="cmdidRunSolutionCheck" context="UICONTEXT_SolutionExists"/>
+    <VisibilityItem guid="guidInvenietisToolsCmdSet" id="cmdidNuGetAnalysis" context="UICONTEXT_SolutionExists"/>
   </VisibilityConstraints>
+
+
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidSolutionCheckUtilities_VSPackagePkg" value="{b361c6db-593a-4a32-a0cb-c5641be8a8b3}" />
-
-
-    <GuidSymbol name="guidSolutionExists" value="{F1536EF8-92EC-443C-9ED7-FDADF150DA82}" />
+    <GuidSymbol name="guidInvenietisToolsPkg" value="{e9b4ed12-1c63-4df2-83a1-200870740943}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidSolutionCheckUtilities_VSPackageCmdSet" value="{f31de0b9-c1f1-461f-b169-123919980441}">
+    <GuidSymbol name="guidInvenietisToolsCmdSet" value="{8c534c04-e029-4885-9de4-c62dc2c9064f}">
 
       <IDSymbol name="RootMenuGroup" value="0x1020" />
       <IDSymbol name="SubMenu" value="0x1100"/>
       <IDSymbol name="SubMenuGroup" value="0x1150"/>
 
-      <IDSymbol name="cmdidRunSolutionCheck" value="0x0100" />
-
+      <IDSymbol name="cmdidNuGetAnalysis" value="0x0100" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{a4d28dad-0369-4003-bcfa-26b509c15c86}" >
+
+
+    <GuidSymbol name="guidImages" value="{a9ccecd7-2570-48df-848b-0e4ed5ce68a4}" >
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
@@ -132,8 +134,6 @@
       <IDSymbol name="bmpPicArrows" value="5" />
       <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
-
-
 
     <GuidSymbol name="guidIcon" value="{038A34C2-C80D-4314-A516-E083EEA6F800}" >
       <IDSymbol name="mainIcon" value="1" />
