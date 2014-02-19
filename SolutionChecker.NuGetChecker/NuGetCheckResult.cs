@@ -243,6 +243,8 @@ namespace SolutionChecker
 
                 foreach( var framework in distinctFrameworks )
                 {
+                    FrameworkName fwName = framework != null ? framework : new FrameworkName("[NoFrameworkVersionGiven]", Version.Parse("0.0.0.0"));
+
                     List<Tuple<PackageReference, ISolutionProjectItem>> frameworkReferences = new List<Tuple<PackageReference, ISolutionProjectItem>>();
 
                     var r = projectsToRefs.Select( x => new { project = x.Key, reference = x.Value } ).Where( x => x.reference.TargetFramework == framework );
@@ -251,7 +253,7 @@ namespace SolutionChecker
                         frameworkReferences.Add( Tuple.Create( pair.reference, pair.project ) );
                     }
 
-                    frameworkRefs.Add( framework, frameworkReferences );
+                    frameworkRefs.Add(fwName, frameworkReferences);
                 }
                 frameworkRefs = frameworkRefs.OrderBy( x => x.Value.Count ).ToDictionary( x => x.Key, x => x.Value );
 
