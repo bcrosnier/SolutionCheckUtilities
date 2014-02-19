@@ -66,6 +66,7 @@ namespace SolutionCheckUtilities.VSPackage
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidSolutionCheckUtilities_VSPackageCmdSet, (int)PkgCmdIDList.cmdidRunSolutionCheck);
                 MenuCommand menuItem = new MenuCommand( MenuCommands.AnalyzeNuGetReferencesCommand, menuCommandID );
+
                 mcs.AddCommand( menuItem );
             }
         }

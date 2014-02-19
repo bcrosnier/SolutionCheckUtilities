@@ -43,7 +43,7 @@ namespace SolutionChecker.Tests
 
             r.LogResult( _m );
 
-            Assert.That( r.HasMismatches == false && r.MultiplePackagesPerId.Count == 0 );
+            Assert.That( r.HasMismatches == false && r.MultipleVersionsPerPackageId.Count == 0 );
 
             // Testing PackageVersions
             Assert.That( r.PackageVersions, Has.Count.AtLeast( 2 ) );
@@ -75,12 +75,12 @@ namespace SolutionChecker.Tests
 
             r.LogResult( _m );
 
-            Assert.That( r.HasMismatches == true && r.MultiplePackagesPerId.Count == 1 );
-            Assert.That( r.MultiplePackagesPerId.Keys, Is.Unique );
-            Assert.That( r.MultiplePackagesPerId.Keys, Contains.Item( "CK.Core" ) );
-            Assert.That( r.MultiplePackagesPerId["CK.Core"], Has.Count.AtLeast( 2 ) );
-            Assert.That( r.MultiplePackagesPerId["CK.Core"].Values, Is.Unique );
-            Assert.That( r.MultiplePackagesPerId["CK.Core"].Keys, Is.Unique );
+            Assert.That( r.HasMismatches == true && r.MultipleVersionsPerPackageId.Count == 1 );
+            Assert.That( r.MultipleVersionsPerPackageId.Keys, Is.Unique );
+            Assert.That( r.MultipleVersionsPerPackageId.Keys, Contains.Item( "CK.Core" ) );
+            Assert.That( r.MultipleVersionsPerPackageId["CK.Core"], Has.Count.AtLeast( 2 ) );
+            Assert.That( r.MultipleVersionsPerPackageId["CK.Core"].Values, Is.Unique );
+            Assert.That( r.MultipleVersionsPerPackageId["CK.Core"].Keys, Is.Unique );
 
             Assert.That( r.GetVersionMismatches(), Has.Count.EqualTo( 1 ) );
             Assert.That( r.GetVersionMismatches()["CK.Core"], Has.Count.EqualTo( 2 ) );
@@ -100,12 +100,12 @@ namespace SolutionChecker.Tests
 
             r.LogResult( _m );
 
-            Assert.That( r.HasMismatches == true && r.MultiplePackagesPerId.Count == 1 );
-            Assert.That( r.MultiplePackagesPerId.Keys, Is.Unique );
-            Assert.That( r.MultiplePackagesPerId.Keys, Contains.Item( "CK.Core" ) );
-            Assert.That( r.MultiplePackagesPerId["CK.Core"], Has.Count.AtLeast( 2 ) );
+            Assert.That( r.HasMismatches == true && r.MultipleVersionsPerPackageId.Count == 1 );
+            Assert.That( r.MultipleVersionsPerPackageId.Keys, Is.Unique );
+            Assert.That( r.MultipleVersionsPerPackageId.Keys, Contains.Item( "CK.Core" ) );
+            Assert.That( r.MultipleVersionsPerPackageId["CK.Core"], Has.Count.AtLeast( 2 ) );
             //Assert.That( r.MultiplePackagesPerId["CK.Core"].Values, Is.Unique ); // False: 2 package references are considered equal even with different TargetFrameworks.
-            Assert.That( r.MultiplePackagesPerId["CK.Core"].Keys, Is.Unique );
+            Assert.That( r.MultipleVersionsPerPackageId["CK.Core"].Keys, Is.Unique );
 
             Assert.That( r.GetFrameworkMismatches(), Has.Count.EqualTo( 1 ) );
             Assert.That( r.GetFrameworkMismatches()["CK.Core"], Has.Count.EqualTo( 2 ) );
@@ -133,7 +133,7 @@ namespace SolutionChecker.Tests
 
             r.LogResult( _m );
 
-            Assert.That( r.HasMismatches == false && r.MultiplePackagesPerId.Count == 0 );
+            Assert.That( r.HasMismatches == false && r.MultipleVersionsPerPackageId.Count == 0 );
 
         }
     }

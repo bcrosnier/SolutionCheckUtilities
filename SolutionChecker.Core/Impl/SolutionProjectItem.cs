@@ -31,5 +31,10 @@ namespace SolutionChecker
             RelativePath = projectPath;
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }
